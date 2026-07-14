@@ -66,3 +66,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 }
+
+detekt {
+    config.setFrom(rootProject.files("config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+    autoCorrect = true
+}

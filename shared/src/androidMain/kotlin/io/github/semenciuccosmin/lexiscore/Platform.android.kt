@@ -1,3 +1,5 @@
+@file:Suppress("MatchingDeclarationName")
+
 package io.github.semenciuccosmin.lexiscore
 
 import android.os.Build

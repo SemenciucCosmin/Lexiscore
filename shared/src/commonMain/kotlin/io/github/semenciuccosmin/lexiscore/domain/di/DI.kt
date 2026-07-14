@@ -2,12 +2,10 @@ package io.github.semenciuccosmin.lexiscore.domain.di
 
 import io.github.semenciuccosmin.lexiscore.data.database.DatabaseFactory
 import io.github.semenciuccosmin.lexiscore.data.database.LexiscoreDatabase
-import io.github.semenciuccosmin.lexiscore.ui.viewmodel.AppViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 expect fun platformModule(): Module
@@ -17,5 +15,4 @@ fun commonModule() = module {
     single { get<DatabaseFactory>().create().build() }
     single { get<LexiscoreDatabase>().wordsDao }
     single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
-    viewModelOf(::AppViewModel)
 }

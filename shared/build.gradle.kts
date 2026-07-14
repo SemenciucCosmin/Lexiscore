@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
 }
@@ -73,6 +74,8 @@ kotlin {
 
             // NAVIGATION
             implementation(libs.navigation.compose)
+            implementation(libs.navigation.adaptive)
+            implementation(libs.navigation.lifecycle)
 
             // OKIO
             implementation(libs.okio)
@@ -91,4 +94,18 @@ dependencies {
     kspAndroid(libs.room.compiler)
     add("kspIosArm64", libs.room.compiler)
     add("kspIosSimulatorArm64", libs.room.compiler)
+
+    detektPlugins(libs.detekt.formatting)
+}
+
+detekt {
+    config.setFrom(rootProject.files("config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+    autoCorrect = true
+    source.setFrom(
+        "src/commonMain/kotlin",
+        "src/androidMain/kotlin",
+        "src/iosMain/kotlin",
+        "src/nativeMain/kotlin",
+    )
 }
