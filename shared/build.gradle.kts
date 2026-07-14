@@ -51,7 +51,6 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
 
             // ROOM
-            implementation(libs.room.runtime)
             implementation(libs.room.ktx)
         }
         commonMain.dependencies {
@@ -72,11 +71,15 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.immutableCollections)
 
+            // NAVIGATION
+            implementation(libs.navigation.compose)
+
             // OKIO
             implementation(libs.okio)
 
-            // NAVIGATION
-            implementation(libs.navigation.compose)
+            // ROOM
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
         }
         commonTest.dependencies {
         }
@@ -86,4 +89,6 @@ kotlin {
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
     kspAndroid(libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
 }

@@ -34,6 +34,10 @@ dependencies {
 
     // MODULES
     implementation(projects.shared)
+
+    // ROOM
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
 }
 
 android {
