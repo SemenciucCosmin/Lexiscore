@@ -15,6 +15,6 @@ sealed interface NavDestination : NavKey {
         data object Top : NavDestination, NavKey
 
         @Serializable
-        data object Favorites : NavDestination, NavKey
+        data object Favourites : NavDestination, NavKey
     }
 }

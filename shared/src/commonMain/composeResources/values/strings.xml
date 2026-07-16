@@ -2,6 +2,8 @@
 <resources>
     <string name="lbl_review">Review</string>
     <string name="lbl_top">Top</string>
-    <string name="lbl_favorites">Favorites</string>
+    <string name="lbl_favourites">Favourites</string>
+    <string name="lbl_search_online">Search online</string>
+    <string name="lbl_submit_score">Submit score</string>
 </resources>
 

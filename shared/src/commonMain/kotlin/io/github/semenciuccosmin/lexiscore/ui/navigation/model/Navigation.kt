@@ -10,7 +10,7 @@ val navigationConfig = SavedStateConfiguration {
         polymorphic(NavKey::class) {
             subclass(NavDestination.Main.Review::class, NavDestination.Main.Review.serializer())
             subclass(NavDestination.Main.Top::class, NavDestination.Main.Top.serializer())
-            subclass(NavDestination.Main.Favorites::class, NavDestination.Main.Favorites.serializer())
+            subclass(NavDestination.Main.Favourites::class, NavDestination.Main.Favourites.serializer())
         }
     }
 }

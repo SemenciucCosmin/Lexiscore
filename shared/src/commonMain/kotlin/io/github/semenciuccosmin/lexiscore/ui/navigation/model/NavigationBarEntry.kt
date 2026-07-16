@@ -7,7 +7,7 @@ import io.github.semenciuccosmin.lexiscore.ui.design.icons.Heart
 import io.github.semenciuccosmin.lexiscore.ui.design.icons.Leaderboard
 import io.github.semenciuccosmin.lexiscore.ui.design.icons.LexiscoreIcons
 import lexiscore.shared.generated.resources.Res
-import lexiscore.shared.generated.resources.lbl_favorites
+import lexiscore.shared.generated.resources.lbl_favourites
 import lexiscore.shared.generated.resources.lbl_review
 import lexiscore.shared.generated.resources.lbl_top
 import org.jetbrains.compose.resources.StringResource
@@ -27,9 +27,9 @@ enum class NavigationBarEntry(
         titleRes = Res.string.lbl_top,
         navKey = NavDestination.Main.Top
     ),
-    Favorites(
+    Favourites(
         imageVector = LexiscoreIcons.Heart,
-        titleRes = Res.string.lbl_favorites,
-        navKey = NavDestination.Main.Favorites
+        titleRes = Res.string.lbl_favourites,
+        navKey = NavDestination.Main.Favourites
     )
 }

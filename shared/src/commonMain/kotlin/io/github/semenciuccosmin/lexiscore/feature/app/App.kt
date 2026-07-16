@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import io.github.semenciuccosmin.lexiscore.feature.favorites.route.FavoriteRoute
+import io.github.semenciuccosmin.lexiscore.feature.favourites.route.FavouriteRoute
 import io.github.semenciuccosmin.lexiscore.feature.review.route.ReviewRoute
 import io.github.semenciuccosmin.lexiscore.feature.top.route.TopRoute
 import io.github.semenciuccosmin.lexiscore.ui.design.theme.LexiscoreTheme
@@ -40,8 +40,8 @@ fun App() {
                         TopRoute()
                     }
 
-                    entry<NavDestination.Main.Favorites> {
-                        FavoriteRoute()
+                    entry<NavDestination.Main.Favourites> {
+                        FavouriteRoute()
                     }
                 }
             )
