@@ -10,6 +10,7 @@ import androidx.navigation3.ui.NavDisplay
 import io.github.semenciuccosmin.lexiscore.feature.favourites.route.FavouriteRoute
 import io.github.semenciuccosmin.lexiscore.feature.review.route.ReviewRoute
 import io.github.semenciuccosmin.lexiscore.feature.top.route.TopRoute
+import io.github.semenciuccosmin.lexiscore.feature.word.route.WordRoute
 import io.github.semenciuccosmin.lexiscore.ui.design.theme.LexiscoreTheme
 import io.github.semenciuccosmin.lexiscore.ui.navigation.component.NavigationBar
 import io.github.semenciuccosmin.lexiscore.ui.navigation.model.NavDestination
@@ -41,7 +42,15 @@ fun App() {
                     }
 
                     entry<NavDestination.Main.Favourites> {
-                        FavouriteRoute()
+                        FavouriteRoute(
+                            onItemClick = { wordId ->
+                                backStack.add(NavDestination.Main.Word(wordId))
+                            }
+                        )
+                    }
+
+                    entry<NavDestination.Main.Word> {
+                        WordRoute(wordId = it.wordId)
                     }
                 }
             )

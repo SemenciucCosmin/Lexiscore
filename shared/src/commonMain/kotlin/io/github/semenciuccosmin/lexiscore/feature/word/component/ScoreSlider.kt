@@ -1,4 +1,4 @@
-package io.github.semenciuccosmin.lexiscore.feature.review.component
+package io.github.semenciuccosmin.lexiscore.feature.word.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

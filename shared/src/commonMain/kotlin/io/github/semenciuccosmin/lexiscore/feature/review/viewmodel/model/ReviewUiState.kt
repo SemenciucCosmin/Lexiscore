@@ -1,4 +1,4 @@
-package io.github.semenciuccosmin.lexiscore.feature.review.viewmodel
+package io.github.semenciuccosmin.lexiscore.feature.review.viewmodel.model
 
 data class ReviewUiState(
     val id: Int? = null,

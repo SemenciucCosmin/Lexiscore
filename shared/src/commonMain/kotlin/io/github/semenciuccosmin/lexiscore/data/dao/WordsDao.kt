@@ -10,6 +10,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WordsDao {
 
+    @Query("SELECT * FROM words WHERE id = :id")
+    suspend fun getWordById(id: Int): WordEntity?
+
     @Query("SELECT * FROM words")
     fun getAllAsFlow(): Flow<List<WordEntity>>
 
@@ -30,4 +33,7 @@ interface WordsDao {
 
     @Query("SELECT COUNT(*) FROM words WHERE score IS NOT NULL")
     fun getScoredCountAsFlow(): Flow<Int>
+
+    @Query("SELECT * FROM words WHERE favourite = 1")
+    fun getFavouritesAsFlow(): Flow<List<WordEntity>>
 }

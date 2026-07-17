@@ -16,5 +16,10 @@ sealed interface NavDestination : NavKey {
 
         @Serializable
         data object Favourites : NavDestination, NavKey
+
+        @Serializable
+        data class Word(
+            val wordId: Int
+        ) : NavDestination, NavKey
     }
 }

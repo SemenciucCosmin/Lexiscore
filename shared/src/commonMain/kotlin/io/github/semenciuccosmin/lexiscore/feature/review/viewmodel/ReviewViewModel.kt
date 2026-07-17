@@ -2,7 +2,8 @@ package io.github.semenciuccosmin.lexiscore.feature.review.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.github.semenciuccosmin.lexiscore.data.dao.WordsDao
+import io.github.semenciuccosmin.lexiscore.data.repository.WordsRepository
+import io.github.semenciuccosmin.lexiscore.feature.review.viewmodel.model.ReviewUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ReviewViewModel(
-    private val wordsDao: WordsDao,
+    private val wordsRepository: WordsRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ReviewUiState())
@@ -25,7 +26,7 @@ class ReviewViewModel(
 
     private fun getScoredWordsCount() {
         viewModelScope.launch {
-            wordsDao.getTotalCountAsFlow().collectLatest { totalWordCount ->
+            wordsRepository.getTotalCountAsFlow().collectLatest { totalWordCount ->
                 _uiState.update { it.copy(totalWordCount = totalWordCount) }
             }
         }
@@ -33,7 +34,7 @@ class ReviewViewModel(
 
     private fun getTotalWordsCount() {
         viewModelScope.launch {
-            wordsDao.getScoredCountAsFlow().collectLatest { totalWordCount ->
+            wordsRepository.getScoredCountAsFlow().collectLatest { totalWordCount ->
                 _uiState.update { it.copy(scoredWordCount = totalWordCount) }
             }
         }
@@ -41,14 +42,17 @@ class ReviewViewModel(
 
     private fun getWordsForReview() {
         viewModelScope.launch {
-            wordsDao.getRandomUnscoredAsFlow().filterNotNull().collectLatest { word ->
-                if (!_uiState.value.isSubmitted) return@collectLatest
+            wordsRepository.getRandomUnscoredAsFlow().filterNotNull().collectLatest { word ->
+                if (!_uiState.value.isSubmitted &&_uiState.value.id != word.id) {
+                    return@collectLatest
+                }
+
                 _uiState.update {
                     it.copy(
                         id = word.id,
-                        description = word.word,
-                        definition = word.definition.orEmpty(),
-                        isFavourite = word.favourite == true,
+                        description = word.description,
+                        definition = word.definition,
+                        isFavourite = word.isFavourite,
                         isSubmitted = false
                     )
                 }
@@ -62,11 +66,11 @@ class ReviewViewModel(
 
     fun submitScore(wordId: Int, score: Float) {
         _uiState.update { it.copy(isSubmitted = true) }
-        viewModelScope.launch { wordsDao.updateScore(wordId, score.toDouble()) }
+        viewModelScope.launch { wordsRepository.updateScore(wordId, score.toDouble()) }
     }
 
     fun setFavourite(wordId: Int, isFavourite: Boolean) {
         _uiState.update { it.copy(isFavourite = isFavourite) }
-        viewModelScope.launch { wordsDao.updateFavourite(wordId, isFavourite) }
+        viewModelScope.launch { wordsRepository.updateFavourite(wordId, isFavourite) }
     }
 }

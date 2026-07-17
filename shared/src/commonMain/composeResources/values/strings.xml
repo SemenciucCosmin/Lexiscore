@@ -5,5 +5,7 @@
     <string name="lbl_favourites">Favourites</string>
     <string name="lbl_search_online">Search online</string>
     <string name="lbl_submit_score">Submit score</string>
+    <string name="lbl_empty_list">No items</string>
+    <string name="lbl_no_word">No word found</string>
 </resources>
 
