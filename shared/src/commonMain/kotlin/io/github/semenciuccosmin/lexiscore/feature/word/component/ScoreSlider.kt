@@ -36,7 +36,10 @@ fun ScoreSlider(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "%.2f".format(score),
+            text = score.toInt().let { intPart ->
+                val fracPart = ((score - intPart) * 100).toInt()
+                "$intPart.${fracPart.toString().padStart(2, '0')}"
+            },
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.headlineLarge.copy(
                 fontWeight = FontWeight.Medium

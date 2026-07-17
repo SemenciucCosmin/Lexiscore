@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lbl_review_flagged" translatable="false">_This review has been flagged.</string>
+    <string name="lbl_view_garmin_terms_of_use" translatable="false">_View Garmin Terms of Use</string>
+    <string name="accessibility_device_connected" translatable="false">Device connected</string>
+</resources>

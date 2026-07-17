@@ -34,7 +34,10 @@ fun ReviewScreen(
         )
 
         Text(
-            text = "%.2f".format(uiState.completionPercentage) + "%",
+            text = uiState.completionPercentage.toInt().let { intPart ->
+                val fracPart = ((uiState.completionPercentage - intPart) * 100).toInt()
+                "$intPart.${fracPart.toString().padStart(2, '0')}%"
+            },
             style = MaterialTheme.typography.titleMedium
         )
 
