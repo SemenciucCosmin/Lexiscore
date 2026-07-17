@@ -7,6 +7,7 @@ import io.github.semenciuccosmin.lexiscore.feature.review.viewmodel.model.Review
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -20,22 +21,24 @@ class ReviewViewModel(
 
     init {
         getWordsForReview()
-        getTotalWordsCount()
-        getScoredWordsCount()
+        getStatistics()
     }
 
-    private fun getScoredWordsCount() {
+    private fun getStatistics() {
         viewModelScope.launch {
-            wordsRepository.getTotalCountAsFlow().collectLatest { totalWordCount ->
-                _uiState.update { it.copy(totalWordCount = totalWordCount) }
-            }
-        }
-    }
-
-    private fun getTotalWordsCount() {
-        viewModelScope.launch {
-            wordsRepository.getScoredCountAsFlow().collectLatest { totalWordCount ->
-                _uiState.update { it.copy(scoredWordCount = totalWordCount) }
+            combine(
+                wordsRepository.getTotalCountAsFlow(),
+                wordsRepository.getScoredCountAsFlow()
+            ) { totalCount, scoredCount ->
+                totalCount to scoredCount
+            }.collectLatest { (totalCount, scoredCount) ->
+                _uiState.update {
+                    it.copy(
+                        totalWordCount = totalCount,
+                        scoredWordCount = scoredCount,
+                        completionPercentage = 100 * scoredCount / totalCount.toFloat()
+                    )
+                }
             }
         }
     }
@@ -43,7 +46,7 @@ class ReviewViewModel(
     private fun getWordsForReview() {
         viewModelScope.launch {
             wordsRepository.getRandomUnscoredAsFlow().filterNotNull().collectLatest { word ->
-                if (!_uiState.value.isSubmitted &&_uiState.value.id != word.id) {
+                if (!_uiState.value.isSubmitted && _uiState.value.id != word.id) {
                     return@collectLatest
                 }
 

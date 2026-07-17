@@ -1,11 +1,14 @@
-package io.github.semenciuccosmin.lexiscore.feature.review.component
+package io.github.semenciuccosmin.lexiscore.feature.word.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -16,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import io.github.semenciuccosmin.lexiscore.domain.extensions.getContext
 import io.github.semenciuccosmin.lexiscore.domain.extensions.openUrl
 import io.github.semenciuccosmin.lexiscore.ui.design.icons.LexiscoreIcons
@@ -49,13 +53,19 @@ fun WordDefinitionCard(
                 )
             )
 
-            Text(
-                text = definition,
-                color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontStyle = FontStyle.Italic
+            Column(
+                modifier = Modifier
+                    .heightIn(min = 0.dp, max = 200.dp)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Text(
+                    text = definition,
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontStyle = FontStyle.Italic
+                    )
                 )
-            )
+            }
 
             Button(
                 modifier = Modifier.fillMaxWidth(),

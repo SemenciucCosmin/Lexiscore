@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import io.github.semenciuccosmin.lexiscore.feature.favourites.component.FavouriteButton
-import io.github.semenciuccosmin.lexiscore.feature.review.component.WordDefinitionCard
 import lexiscore.shared.generated.resources.Res
 import lexiscore.shared.generated.resources.lbl_submit_score
 import org.jetbrains.compose.resources.stringResource

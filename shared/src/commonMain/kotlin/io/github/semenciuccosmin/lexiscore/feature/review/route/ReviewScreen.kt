@@ -1,5 +1,6 @@
 package io.github.semenciuccosmin.lexiscore.feature.review.route
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ fun ReviewScreen(
     onSubmitScoreClick: (Int, Float) -> Unit,
 ) {
     Column(
+        verticalArrangement = Arrangement.spacedBy(Pds.spacing.small),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(Pds.spacing.medium)
@@ -28,6 +30,11 @@ fun ReviewScreen(
     ) {
         Text(
             text = "${uiState.scoredWordCount} / ${uiState.totalWordCount}",
+            style = MaterialTheme.typography.titleMedium
+        )
+
+        Text(
+            text = "%.2f".format(uiState.completionPercentage) + "%",
             style = MaterialTheme.typography.titleMedium
         )
 
