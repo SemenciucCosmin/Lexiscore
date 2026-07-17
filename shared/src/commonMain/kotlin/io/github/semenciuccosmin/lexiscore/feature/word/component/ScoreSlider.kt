@@ -17,6 +17,7 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
 import io.github.semenciuccosmin.lexiscore.ui.design.theme.Pds
+import kotlin.math.roundToInt
 
 private const val SLIDER_STEPS = 39
 private const val MINIMUM_SCORE = 0f
@@ -36,9 +37,8 @@ fun ScoreSlider(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = score.toInt().let { intPart ->
-                val fracPart = ((score - intPart) * 100).toInt()
-                "$intPart.${fracPart.toString().padStart(2, '0')}"
+            text = (score * 4).roundToInt().let { steps ->
+                "${steps / 4}.${((steps % 4) * 25).toString().padStart(2, '0')}"
             },
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.headlineLarge.copy(

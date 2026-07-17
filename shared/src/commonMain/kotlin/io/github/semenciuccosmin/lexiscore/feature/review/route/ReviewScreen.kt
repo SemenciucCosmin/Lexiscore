@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import io.github.semenciuccosmin.lexiscore.feature.review.viewmodel.model.ReviewUiState
 import io.github.semenciuccosmin.lexiscore.feature.word.component.WordScreen
 import io.github.semenciuccosmin.lexiscore.ui.design.theme.Pds
+import kotlin.math.roundToInt
 
 @Composable
 @Suppress("MagicNumber")
@@ -34,11 +35,10 @@ fun ReviewScreen(
         )
 
         Text(
-            text = uiState.completionPercentage.toInt().let { intPart ->
-                val fracPart = ((uiState.completionPercentage - intPart) * 100).toInt()
-                "$intPart.${fracPart.toString().padStart(2, '0')}%"
-            },
-            style = MaterialTheme.typography.titleMedium
+            style = MaterialTheme.typography.titleMedium,
+            text = (uiState.completionPercentage * 4).roundToInt().let { steps ->
+                "${steps / 4}.${((steps % 4) * 25).toString().padStart(2, '0')}%"
+            }
         )
 
         WordScreen(
