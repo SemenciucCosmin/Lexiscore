@@ -3,11 +3,13 @@ package io.github.semenciuccosmin.lexiscore.data.repository
 import io.github.semenciuccosmin.lexiscore.data.dao.WordsDao
 import io.github.semenciuccosmin.lexiscore.data.model.Word
 import io.github.semenciuccosmin.lexiscore.data.model.WordEntity
+import io.github.semenciuccosmin.lexiscore.data.network.service.DexOnlineApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class WordsRepositoryImpl(
-    private val wordsDao: WordsDao
+    private val wordsDao: WordsDao,
+    private val dexOnlineApi: DexOnlineApi,
 ) : WordsRepository {
 
     override suspend fun getWordById(id: Int): Word? {
@@ -36,23 +38,38 @@ class WordsRepositoryImpl(
 
     override fun getFavouritesAsFlow(): Flow<List<Word>> {
         return wordsDao.getFavouritesAsFlow().map { entities ->
-            entities.mapNotNull(::mapEntityToModel)
+            entities.mapNotNull { mapEntityToModel(it) }
         }
     }
 
     override fun getScoredAsFlow(): Flow<List<Word>> {
         return wordsDao.getScoredAsFlow().map { entities ->
-            entities.mapNotNull(::mapEntityToModel)
+            entities.mapNotNull { mapEntityToModel(it) }
         }
     }
 
-    private fun mapEntityToModel(entity: WordEntity?): Word? {
+    private suspend fun mapEntityToModel(entity: WordEntity?): Word? {
+        val definition = entity?.definition ?: run {
+            val fetchedDefinition = entity?.word?.let { fetchDefinition(it) }
+            if (entity?.id != null && fetchedDefinition != null) {
+                wordsDao.updateDefinition(entity.id, fetchedDefinition)
+            }
+
+            fetchedDefinition
+        }
+
         return Word(
             id = entity?.id ?: return null,
             description = entity.word,
-            definition = entity.definition.orEmpty(),
+            definition = definition.orEmpty(),
             score = entity.score?.toFloat(),
             isFavourite = entity.favourite == true,
         )
+    }
+
+    private suspend fun fetchDefinition(word: String): String? {
+        return dexOnlineApi.getWordDefinition(word).payload
+            ?.substringAfter("<span class=\"tree-def html\"> ")
+            ?.substringBefore(" </span> <span class=\"meaning-sources tag-group\">")
     }
 }

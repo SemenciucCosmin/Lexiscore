@@ -51,6 +51,9 @@ kotlin {
             // COMPOSE
             implementation(libs.compose.uiToolingPreview)
 
+            // KTOR
+            implementation(libs.ktor.client.okhttp)
+
             // ROOM
             implementation(libs.room.ktx)
         }
@@ -72,6 +75,12 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.immutableCollections)
 
+            // KTOR
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization.kotlinx.json)
+
             // NAVIGATION
             implementation(libs.navigation.compose)
             implementation(libs.navigation.adaptive)
@@ -83,6 +92,10 @@ kotlin {
             // ROOM
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
+        }
+        iosMain.dependencies {
+            // KTOR
+            implementation(libs.ktor.client.darwin)
         }
         commonTest.dependencies {
         }

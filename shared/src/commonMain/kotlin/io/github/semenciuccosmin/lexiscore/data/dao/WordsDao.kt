@@ -22,6 +22,9 @@ interface WordsDao {
     @Query("UPDATE words SET score = :score WHERE id = :id")
     suspend fun updateScore(id: Int, score: Double)
 
+    @Query("UPDATE words SET definition = :definition WHERE id = :id")
+    suspend fun updateDefinition(id: Int, definition: String)
+
     @Query("UPDATE words SET favourite = :favourite WHERE id = :id")
     suspend fun updateFavourite(id: Int, favourite: Boolean)
 
