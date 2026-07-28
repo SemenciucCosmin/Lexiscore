@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,34 +23,37 @@ fun ReviewScreen(
     onFavouriteClick: (Int, Boolean) -> Unit,
     onSubmitScoreClick: (Int, Float) -> Unit,
 ) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(Pds.spacing.small),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .padding(Pds.spacing.medium)
-            .fillMaxSize()
-    ) {
-        Text(
-            text = "${uiState.scoredWordCount} / ${uiState.totalWordCount}",
-            style = MaterialTheme.typography.titleMedium
-        )
+    Scaffold { paddingValues ->
+        Column(
+            verticalArrangement = Arrangement.spacedBy(Pds.spacing.small),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(Pds.spacing.medium)
+                .fillMaxSize()
+        ) {
+            Text(
+                text = "${uiState.scoredWordCount} / ${uiState.totalWordCount}",
+                style = MaterialTheme.typography.titleMedium
+            )
 
-        Text(
-            style = MaterialTheme.typography.titleMedium,
-            text = (uiState.completionPercentage * 4).roundToInt().let { steps ->
-                "${steps / 4}.${((steps % 4) * 25).toString().padStart(2, '0')}%"
-            }
-        )
+            Text(
+                style = MaterialTheme.typography.titleMedium,
+                text = (uiState.completionPercentage * 4).roundToInt().let { steps ->
+                    "${steps / 4}.${((steps % 4) * 25).toString().padStart(2, '0')}%"
+                }
+            )
 
-        WordDetails(
-            wordId = uiState.id ?: return,
-            description = uiState.description,
-            definition = uiState.definition,
-            score = uiState.score,
-            isFavourite = uiState.isFavourite,
-            onSelectScore = onSelectScore,
-            onFavouriteClick = onFavouriteClick,
-            onSubmitScoreClick = onSubmitScoreClick
-        )
+            WordDetails(
+                wordId = uiState.id ?: return@Column,
+                description = uiState.description,
+                definition = uiState.definition,
+                score = uiState.score,
+                isFavourite = uiState.isFavourite,
+                onSelectScore = onSelectScore,
+                onFavouriteClick = onFavouriteClick,
+                onSubmitScoreClick = onSubmitScoreClick
+            )
+        }
     }
 }

@@ -14,7 +14,6 @@ import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.metadata
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import io.github.semenciuccosmin.lexiscore.feature.favourites.route.FavouriteRoute
@@ -52,36 +51,15 @@ fun App() {
             NavDisplay(
                 modifier = Modifier.padding(paddingValues),
                 backStack = backStack,
+                transitionSpec = { fadeIn() togetherWith fadeOut() },
+                popTransitionSpec = { fadeIn() togetherWith fadeOut() },
+                predictivePopTransitionSpec = { fadeIn() togetherWith fadeOut() },
                 entryProvider = entryProvider {
-                    entry<NavDestination.Main.Review>(
-                        metadata = metadata {
-                            put(NavDisplay.TransitionKey) {
-                                fadeIn() togetherWith fadeOut()
-                            }
-                            put(NavDisplay.PopTransitionKey) {
-                                fadeIn() togetherWith fadeOut()
-                            }
-                            put(NavDisplay.PredictivePopTransitionKey) {
-                                fadeIn() togetherWith fadeOut()
-                            }
-                        }
-                    ) {
+                    entry<NavDestination.Main.Review> {
                         ReviewRoute()
                     }
 
-                    entry<NavDestination.Main.Top>(
-                        metadata = metadata {
-                            put(NavDisplay.TransitionKey) {
-                                fadeIn() togetherWith fadeOut()
-                            }
-                            put(NavDisplay.PopTransitionKey) {
-                                fadeIn() togetherWith fadeOut()
-                            }
-                            put(NavDisplay.PredictivePopTransitionKey) {
-                                fadeIn() togetherWith fadeOut()
-                            }
-                        }
-                    ) {
+                    entry<NavDestination.Main.Top> {
                         TopRoute(
                             onItemClick = { wordId ->
                                 backStack.add(NavDestination.Main.Word(wordId))
@@ -89,19 +67,7 @@ fun App() {
                         )
                     }
 
-                    entry<NavDestination.Main.Favourites>(
-                        metadata = metadata {
-                            put(NavDisplay.TransitionKey) {
-                                fadeIn() togetherWith fadeOut()
-                            }
-                            put(NavDisplay.PopTransitionKey) {
-                                fadeIn() togetherWith fadeOut()
-                            }
-                            put(NavDisplay.PredictivePopTransitionKey) {
-                                fadeIn() togetherWith fadeOut()
-                            }
-                        }
-                    ) {
+                    entry<NavDestination.Main.Favourites> {
                         FavouriteRoute(
                             onItemClick = { wordId ->
                                 backStack.add(NavDestination.Main.Word(wordId))
