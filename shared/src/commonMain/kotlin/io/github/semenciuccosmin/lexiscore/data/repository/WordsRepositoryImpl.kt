@@ -5,7 +5,6 @@ import io.github.semenciuccosmin.lexiscore.data.model.Word
 import io.github.semenciuccosmin.lexiscore.data.model.WordEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
 
 class WordsRepositoryImpl(
     private val wordsDao: WordsDao
@@ -15,8 +14,8 @@ class WordsRepositoryImpl(
         return mapEntityToModel(wordsDao.getWordById(id))
     }
 
-    override fun getRandomUnscoredAsFlow(): Flow<Word?> {
-        return wordsDao.getRandomUnscoredAsFlow().mapNotNull(::mapEntityToModel)
+    override suspend fun getRandomUnscoredWord(): Word? {
+        return mapEntityToModel(wordsDao.getRandomUnscoredWord())
     }
 
     override suspend fun updateScore(id: Int, score: Double) {

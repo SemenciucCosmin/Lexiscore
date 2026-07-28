@@ -8,19 +8,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ReviewViewModel(
-    private val wordsRepository: WordsRepository
+    private val wordsRepository: WordsRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ReviewUiState())
     val uiState = _uiState.asStateFlow()
 
     init {
-        getWordsForReview()
+        getWord()
         getStatistics()
     }
 
@@ -43,20 +42,15 @@ class ReviewViewModel(
         }
     }
 
-    private fun getWordsForReview() {
+    private fun getWord() {
         viewModelScope.launch {
-            wordsRepository.getRandomUnscoredAsFlow().filterNotNull().collectLatest { word ->
-                if (!_uiState.value.isSubmitted && _uiState.value.id != word.id) {
-                    return@collectLatest
-                }
-
+            wordsRepository.getRandomUnscoredWord()?.let { word ->
                 _uiState.update {
                     it.copy(
                         id = word.id,
                         description = word.description,
                         definition = word.definition,
                         isFavourite = word.isFavourite,
-                        isSubmitted = false
                     )
                 }
             }
@@ -68,8 +62,8 @@ class ReviewViewModel(
     }
 
     fun submitScore(wordId: Int, score: Float) {
-        _uiState.update { it.copy(isSubmitted = true) }
         viewModelScope.launch { wordsRepository.updateScore(wordId, score.toDouble()) }
+        getWord()
     }
 
     fun setFavourite(wordId: Int, isFavourite: Boolean) {

@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import io.github.semenciuccosmin.lexiscore.feature.review.viewmodel.model.ReviewUiState
-import io.github.semenciuccosmin.lexiscore.feature.word.component.WordScreen
+import io.github.semenciuccosmin.lexiscore.feature.word.component.WordDetails
 import io.github.semenciuccosmin.lexiscore.ui.design.theme.Pds
 import kotlin.math.roundToInt
 
@@ -41,7 +41,7 @@ fun ReviewScreen(
             }
         )
 
-        WordScreen(
+        WordDetails(
             wordId = uiState.id ?: return,
             description = uiState.description,
             definition = uiState.definition,

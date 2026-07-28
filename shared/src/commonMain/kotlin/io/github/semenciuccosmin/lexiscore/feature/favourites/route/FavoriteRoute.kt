@@ -13,8 +13,13 @@ fun FavouriteRoute(onItemClick: (Int) -> Unit) {
     val uiState by viewModel.uiState.collectAsState()
 
     FavouritesScreen(
-        words = uiState.words,
+        words = uiState.filteredWords,
+        query = uiState.searchQuery,
+        sortOption = uiState.sortOption,
         onItemClick = onItemClick,
-        onFavouriteClick = viewModel::setFavourite
+        onFavouriteClick = viewModel::setFavourite,
+        onChangeQuery = viewModel::setSearchQuery,
+        onSelectSortOption = viewModel::setSortOption,
+        onClearClick = { viewModel.setSearchQuery("") }
     )
 }

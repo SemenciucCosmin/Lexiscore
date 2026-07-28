@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface WordsRepository {
     suspend fun getWordById(id: Int): Word?
 
-    fun getRandomUnscoredAsFlow(): Flow<Word?>
+    suspend fun getRandomUnscoredWord(): Word?
 
     suspend fun updateScore(id: Int, score: Double)
 

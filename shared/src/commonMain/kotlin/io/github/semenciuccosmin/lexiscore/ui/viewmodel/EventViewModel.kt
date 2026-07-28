@@ -1,4 +1,4 @@
-package com.ubb.fmi.orar.ui.catalog.viewmodel
+package io.github.semenciuccosmin.lexiscore.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

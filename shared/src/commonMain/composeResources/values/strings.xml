@@ -7,5 +7,10 @@
     <string name="lbl_submit_score">Submit score</string>
     <string name="lbl_empty_list">No items</string>
     <string name="lbl_no_word">No word found</string>
+    <string name="lbl_word">Word</string>
+    <string name="lbl_sort_option_score_descending">Score descending</string>
+    <string name="lbl_sort_option_score_ascending">Score ascending</string>
+    <string name="lbl_sort_option_alphabetical">A to Z</string>
+    <string name="lbl_sort_option_reverse_alphabetical">Z to A</string>
 </resources>
 

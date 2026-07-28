@@ -17,7 +17,7 @@ interface WordsDao {
     fun getAllAsFlow(): Flow<List<WordEntity>>
 
     @Query("SELECT * FROM words WHERE score IS NULL ORDER BY RANDOM() LIMIT 1")
-    fun getRandomUnscoredAsFlow(): Flow<WordEntity?>
+    suspend fun getRandomUnscoredWord(): WordEntity?
 
     @Query("UPDATE words SET score = :score WHERE id = :id")
     suspend fun updateScore(id: Int, score: Double)

@@ -9,5 +9,4 @@ data class ReviewUiState(
     val totalWordCount: Int = 0,
     val scoredWordCount: Int = 0,
     val completionPercentage: Float = 0f,
-    val isSubmitted: Boolean = true
 )
