@@ -82,7 +82,11 @@ fun App() {
                             }
                         }
                     ) {
-                        TopRoute()
+                        TopRoute(
+                            onItemClick = { wordId ->
+                                backStack.add(NavDestination.Main.Word(wordId))
+                            }
+                        )
                     }
 
                     entry<NavDestination.Main.Favourites>(

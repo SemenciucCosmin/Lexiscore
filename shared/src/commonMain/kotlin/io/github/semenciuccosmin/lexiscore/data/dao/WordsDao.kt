@@ -36,4 +36,7 @@ interface WordsDao {
 
     @Query("SELECT * FROM words WHERE favourite = 1")
     fun getFavouritesAsFlow(): Flow<List<WordEntity>>
+
+    @Query("SELECT * FROM words WHERE score IS NOT NULL")
+    fun getScoredAsFlow(): Flow<List<WordEntity>>
 }

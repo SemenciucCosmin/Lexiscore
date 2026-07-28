@@ -1,4 +1,4 @@
-package io.github.semenciuccosmin.lexiscore.feature.favourites.viewmodel.model
+package io.github.semenciuccosmin.lexiscore.feature.top.viewmodel.model
 
 import io.github.semenciuccosmin.lexiscore.data.model.Word
 import io.github.semenciuccosmin.lexiscore.ui.design.model.SortOption
@@ -6,11 +6,14 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 
-data class FavouritesUiState(
+data class TopUiState(
     private val words: ImmutableList<Word> = persistentListOf(),
     val searchQuery: String = "",
-    val sortOption: SortOption = SortOption.ALPHABETICAL,
+    val sortOption: SortOption = SortOption.SCORE_DESCENDING,
 ) {
+    val descendingWords: ImmutableList<Word>
+        get() = words.sortedByDescending { it.score }.toImmutableList()
+
     val filteredWords: ImmutableList<Word>
         get(): ImmutableList<Word> {
             val filtered = when {

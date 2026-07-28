@@ -17,4 +17,6 @@ interface WordsRepository {
     fun getScoredCountAsFlow(): Flow<Int>
 
     fun getFavouritesAsFlow(): Flow<List<Word>>
+
+    fun getScoredAsFlow(): Flow<List<Word>>
 }

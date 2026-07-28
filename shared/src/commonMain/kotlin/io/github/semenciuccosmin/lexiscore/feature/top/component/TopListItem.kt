@@ -1,41 +1,55 @@
-package io.github.semenciuccosmin.lexiscore.feature.favourites.component
+package io.github.semenciuccosmin.lexiscore.feature.top.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import io.github.semenciuccosmin.lexiscore.ui.design.theme.Pds
 
 private const val MAX_DEFINITION_LINES = 2
 
 @Composable
-fun FavouriteListItem(
+fun TopListItem(
+    index: Int,
     word: String,
     score: Float?,
     definition: String,
-    isFavourite: Boolean,
+    tint: Color,
     onClick: () -> Unit,
-    onFavouriteClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     OutlinedCard(
         modifier = modifier,
-        onClick = onClick
+        onClick = onClick,
+        colors = CardDefaults.outlinedCardColors(containerColor = tint.copy(alpha = 0.05f)),
+        border = BorderStroke(2.0.dp, tint)
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(Pds.spacing.medium),
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(Pds.spacing.sMedium)
         ) {
+            Text(
+                text = index.toString(),
+                color = tint,
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Medium
+                )
+            )
+
             Column(
                 verticalArrangement = Arrangement.spacedBy(Pds.spacing.xSmall),
                 modifier = Modifier.weight(1f)
@@ -59,19 +73,12 @@ fun FavouriteListItem(
                 )
             }
 
-            if (score != null) {
-                Text(
-                    text = score.toString(),
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        fontWeight = FontWeight.Medium
-                    )
+            Text(
+                text = score.toString(),
+                color = tint,
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Medium
                 )
-            }
-
-            FavouriteButton(
-                isChecked = isFavourite,
-                onClick = onFavouriteClick
             )
         }
     }

@@ -6,6 +6,7 @@ import io.github.semenciuccosmin.lexiscore.data.repository.WordsRepository
 import io.github.semenciuccosmin.lexiscore.data.repository.WordsRepositoryImpl
 import io.github.semenciuccosmin.lexiscore.feature.favourites.viewmodel.FavouritesViewModel
 import io.github.semenciuccosmin.lexiscore.feature.review.viewmodel.ReviewViewModel
+import io.github.semenciuccosmin.lexiscore.feature.top.viewmodel.TopViewModel
 import io.github.semenciuccosmin.lexiscore.feature.word.viewmodel.WordViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,5 +26,6 @@ fun commonModule() = module {
 
     viewModelOf(::ReviewViewModel)
     viewModelOf(::FavouritesViewModel)
+    viewModelOf(::TopViewModel)
     viewModelOf(::WordViewModel)
 }

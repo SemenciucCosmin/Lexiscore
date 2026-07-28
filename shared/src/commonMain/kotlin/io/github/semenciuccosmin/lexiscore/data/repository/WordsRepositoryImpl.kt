@@ -40,6 +40,12 @@ class WordsRepositoryImpl(
         }
     }
 
+    override fun getScoredAsFlow(): Flow<List<Word>> {
+        return wordsDao.getScoredAsFlow().map { entities ->
+            entities.mapNotNull(::mapEntityToModel)
+        }
+    }
+
     private fun mapEntityToModel(entity: WordEntity?): Word? {
         return Word(
             id = entity?.id ?: return null,
