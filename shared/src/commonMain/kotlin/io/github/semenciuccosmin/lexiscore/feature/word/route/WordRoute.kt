@@ -20,7 +20,10 @@ fun WordRoute(
         word = uiState.word,
         onSelectScore = viewModel::setScore,
         onFavouriteClick = viewModel::setFavourite,
-        onSubmitScoreClick = viewModel::submitScore,
-        onBack = onBack
+        onBack = onBack,
+        onSubmitScoreClick = { wordId, score ->
+            viewModel.submitScore(wordId, score)
+            onBack()
+        }
     )
 }
