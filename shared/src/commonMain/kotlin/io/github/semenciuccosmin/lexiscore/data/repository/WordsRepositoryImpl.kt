@@ -71,5 +71,6 @@ class WordsRepositoryImpl(
         return dexOnlineApi.getWordDefinition(word).payload
             ?.substringAfter("<span class=\"tree-def html\"> ")
             ?.substringBefore(" </span> <span class=\"meaning-sources tag-group\">")
+            ?.takeIf { !it.startsWith("<!DOCTYPE html>") }
     }
 }
