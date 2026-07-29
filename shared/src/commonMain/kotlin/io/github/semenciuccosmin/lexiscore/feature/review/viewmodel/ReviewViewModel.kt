@@ -51,6 +51,7 @@ class ReviewViewModel(
                         description = word.description,
                         definition = word.definition,
                         isFavourite = word.isFavourite,
+                        score = 5f
                     )
                 }
             }
